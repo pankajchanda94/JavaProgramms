@@ -5,6 +5,8 @@
  */
 package testproject;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Stack;
 
 /**
@@ -20,7 +22,15 @@ public class TestProject {
         // TODO code application logic here
         Stack pexp = new Stack();
         Stack opst = new Stack();
-       String exp = "(a+b)*(c+d)";
+        String exp = "" ;
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        try{
+         exp = in.readLine();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        //String exp = "(a+b)*(c+d)";
         //String exp = "a+b+c+d";
         //String exp = "a*b+c*d";
         //String exp = "a+b*c+d";
@@ -38,24 +48,34 @@ public class TestProject {
                
         if(!TestProject.isOprator(exp.charAt(i))) {
             pexp.push(exp.charAt(i));
-            System.out.println("print :"+exp.charAt(i));
+           // System.out.println("print :"+exp.charAt(i));
             
         }
         else{
             
             //opst.push(exp.charAt(i));
             if(opst.isEmpty() || exp.charAt(i) == '('){
+                
+              //  System.out.println("opst.isEmpty or (");
                 opst.push(exp.charAt(i));
+               
+                
             }
             else
             if(exp.charAt(i) != ')'){
                 
                 char chart = exp.charAt(i);
-                while(!opst.isEmpty() && (TestProject.priotity(chart) >= TestProject.priotity((char)opst.peek())))
+               // System.out.println("exp.charati != )");
+                try{
+                while(!opst.isEmpty() && (char)opst.peek()!='(' && (TestProject.priotity(chart) >= TestProject.priotity((char)opst.peek())))
                 {
                     pexp.push(opst.pop());
            
                     
+                }
+                }
+                catch(Exception e){
+                    e.printStackTrace();
                 }
                 opst.push(chart);
             }
@@ -103,7 +123,7 @@ public class TestProject {
 //       else{
 //           return false;
 //       }
-         System.out.println(57< a | a<48);
+         //System.out.println("isOperator :"+ a);
          return (122< a | a<97);
        
      }
