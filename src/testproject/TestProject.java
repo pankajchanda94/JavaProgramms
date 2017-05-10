@@ -20,16 +20,21 @@ public class TestProject {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+     
+        String exp = "";
         Stack pexp = new Stack();
-        Stack opst = new Stack();
-        String exp = "" ;
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        try{
-         exp = in.readLine();
-        }
-        catch(Exception e){
+        try {
+            exp = in.readLine();
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        
+        post_to_infix calc = new post_to_infix();
+        pexp = calc.calculate(exp);
+        //System.out.println(pexp.peek());
+        System.out.println(pexp.toString());
+       // System.out.println(pexp.toArray());
         //String exp = "(a+b)*(c+d)";
         //String exp = "a+b+c+d";
         //String exp = "a*b+c*d";
@@ -38,119 +43,8 @@ public class TestProject {
         //String exp = "a+b*c";
         //solution - abc*+de/f*-
         //-*
-        int strlen = exp.length();
-       
-       
-      
-        for(int i = 0;i<strlen;i++)
-        {
-           
-               
-        if(!TestProject.isOprator(exp.charAt(i))) {
-            pexp.push(exp.charAt(i));
-           // System.out.println("print :"+exp.charAt(i));
-            
-        }
-        else{
-            
-            //opst.push(exp.charAt(i));
-            if(opst.isEmpty() || exp.charAt(i) == '('){
-                
-              //  System.out.println("opst.isEmpty or (");
-                opst.push(exp.charAt(i));
-               
-                
-            }
-            else
-            if(exp.charAt(i) != ')'){
-                
-                char chart = exp.charAt(i);
-               // System.out.println("exp.charati != )");
-                try{
-                while(!opst.isEmpty() && (char)opst.peek()!='(' && (TestProject.priotity(chart) >= TestProject.priotity((char)opst.peek())))
-                {
-                    pexp.push(opst.pop());
-           
-                    
-                }
-                }
-                catch(Exception e){
-                    e.printStackTrace();
-                }
-                opst.push(chart);
-            }
-        
-            else{
-                while((char)opst.peek() != '(')
-                {
-                    pexp.push(opst.pop());
-                }
-                if((char)opst.peek() == '('){
-                    opst.pop();
-                }
-                
-           
-            
-             }
-        
-        
-           
-            
-        }
-        
-        
-        
      
-        
-        
-        
     }
-        while(!opst.isEmpty())
-        {
-            pexp.push(opst.pop());
-        }
-        System.out.println(pexp.toString());
-        System.out.println(opst.toString());
-        
     }
-     public static boolean isOprator(char a)
-     {
-//        if(57< a | a<48 ){
-//          
-//           return true;
-//           
-//       }
-//       else{
-//           return false;
-//       }
-         //System.out.println("isOperator :"+ a);
-         return (122< a | a<97);
-       
-     }
-     public static int priotity(char Op)
-     {
-         int x=0;
-         switch (Op)
-         {
-             case '^' : 
-                 x=1;
-                 break;
-             case '*' :
-                 x=2;
-                 break;
-             case '/' :
-                 x=2;
-                 break;
-             case '+' :
-                 x=3;
-                 break;
-             case '-' : 
-                 x=3;
-                 break;
-             default:
-                 System.out.println("NO MATCH FOUND");
-         }
-        return x;
-     }
+
     
-}
