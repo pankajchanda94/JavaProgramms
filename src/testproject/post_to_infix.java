@@ -15,7 +15,7 @@ import java.util.Stack;
  */
 public class  post_to_infix{
     
-    public Stack calculate(String exp){
+    public  Stack calculate(String exp){
         
         Stack pexp = new Stack();
         // TODO code application logic here
@@ -28,9 +28,10 @@ public class  post_to_infix{
         //String exp = "a+b*c-d/e*f";
         //String exp = "a+b*c";
         //solution - abc*+de/f*-
+        //String exp = "13+12*345";
         //-*
         int strlen = exp.length();
-
+        
         for (int i = 0; i < strlen; i++) {
 
             if (!post_to_infix.isOprator(exp.charAt(i))) {

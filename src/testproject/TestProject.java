@@ -23,6 +23,9 @@ public class TestProject {
      
         String exp = "";
         Stack pexp = new Stack();
+        Stack<String> corrStack = new Stack<String>();
+  
+        
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         try {
             exp = in.readLine();
@@ -31,9 +34,16 @@ public class TestProject {
         }
         
         post_to_infix calc = new post_to_infix();
+        
+        corrStack = Stack_inverter.evaluate(Num_String_to_stack.calculateExp(exp));
+        //  [), 456, *, 45422, (, +, 13]
+        
         pexp = calc.calculate(exp);
+         System.out.println(pexp.toString());
+        calculate_postfix.calculate(pexp);
+        
         //System.out.println(pexp.peek());
-        System.out.println(pexp.toString());
+       
        // System.out.println(pexp.toArray());
         //String exp = "(a+b)*(c+d)";
         //String exp = "a+b+c+d";
