@@ -37,10 +37,10 @@ public class TestProject {
         
         corrStack = Stack_inverter.evaluate(Num_String_to_stack.calculateExp(exp));
         //  [), 456, *, 45422, (, +, 13]
-        
-        pexp = calc.calculate(exp);
+        //System.out.println("corrStack "+corrStack.toString());
+        pexp = calc.calculate(corrStack);
          System.out.println(pexp.toString());
-        calculate_postfix.calculate(pexp);
+       // calculate_postfix.calculate(pexp);
         
         //System.out.println(pexp.peek());
        

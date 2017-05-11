@@ -22,22 +22,32 @@ public class Num_String_to_stack {
             if(Num_String_to_stack.isNum(exp.charAt(i)))
             {
                 nums += exp.charAt(i);
+                //System.out.println("nums is : "+nums);
+                //System.out.println("result is"+ result);
             }
             else{
                 
                 if(nums==""){
                     result.push(Character.toString(exp.charAt(i)));
+                    //System.out.println("pushed to result , coz nums = null : "+exp.charAt(i));
+                    //System.out.println("result is"+ result);
                     
                 }
                 else{
                     result.push(nums);
                     result.push(Character.toString(exp.charAt(i)));
                     nums = "";
+                    //System.out.println("pushed to result,nums made=null : "+exp.charAt(i));
+                    //System.out.println("result is"+ result);
                     
                 }
             }
             
         }
+        if(nums!=""){
+           result.push(nums);  
+        }
+       
   
         System.out.println("Num_String_to_stack ="+result.toString());
         
@@ -48,7 +58,7 @@ public class Num_String_to_stack {
     public static boolean isNum(char num)
     {
         
-        return((num>=48)&&(num<=57));
+        return(((num>=48)&&(num<=57)) || num==46 );
         
     }
     

@@ -29,7 +29,7 @@ public class calculate_postfix {
         
         while(!exp.isEmpty())
         {
-            arrlist.add((char)exp.pop());
+            arrlist.add((String)exp.pop());
         }
        System.out.println("dfdfdf"+arrlist.toString());
        for(int i=arrlist.size();i>=0;i--)

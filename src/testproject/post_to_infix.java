@@ -15,8 +15,9 @@ import java.util.Stack;
  */
 public class  post_to_infix{
     
-    public  Stack calculate(String exp){
+    public  Stack calculate(Stack  exp){
         
+        //  [), 456, *, 45422, (, +, 13]
         Stack pexp = new Stack();
         // TODO code application logic here
         
@@ -30,41 +31,60 @@ public class  post_to_infix{
         //solution - abc*+de/f*-
         //String exp = "13+12*345";
         //-*
-        int strlen = exp.length();
+      //  int strlen = exp.length();
         
-        for (int i = 0; i < strlen; i++) {
+        while (!exp.isEmpty()) {
+            
+            String item = (String)exp.pop();
 
-            if (!post_to_infix.isOprator(exp.charAt(i))) {
-                pexp.push(exp.charAt(i));
-                // System.out.println("print :"+exp.charAt(i));
+            if (!post_to_infix.isOprator(item)) {
+                pexp.push(item);
+                System.out.println("1 item is: "+item);
+                System.out.println("pushed to pexp:"+item);
+                System.out.println("pext is: "+pexp.toString());
 
             } else {
-
-                //opst.push(exp.charAt(i));
-                if (opst.isEmpty() || exp.charAt(i) == '(') {
+              //  [), 456, *, 45422, (, +, 13]
+                //opst.push(item);
+                //(89+45.3)*(8.0+3.9)
+                if (opst.isEmpty() || item == "(") {
 
                     //  System.out.println("opst.isEmpty or (");
-                    opst.push(exp.charAt(i));
+                    opst.push(item);
+                    System.out.println("2 item is: "+item);
+                    System.out.println("pushed to opst:"+item);
+                    System.out.println("opst is: "+opst.toString());
+                } else if (!item.equals(")")) {
 
-                } else if (exp.charAt(i) != ')') {
-
-                    char chart = exp.charAt(i);
+                    String chart = item;
                     // System.out.println("exp.charati != )");
                     try {
-                        while (!opst.isEmpty() && (char) opst.peek() != '(' && (post_to_infix.priotity(chart) >= post_to_infix.priotity((char) opst.peek()))) {
+                      while (!opst.isEmpty() && !((String)opst.peek()).equals("(") && (post_to_infix.priotity(chart) >= post_to_infix.priotity((String) opst.peek()))) 
+                      {
+                          
+                          System.out.println(((String)opst.peek()).equals("("));
+                             System.out.println("3 item is: "+opst.peek());
                             pexp.push(opst.pop());
+                            System.out.println("4 item is: "+item);
+                            System.out.println("pext is: "+pexp.toString());
 
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                     opst.push(chart);
+                    System.out.println("5 item is: "+item);
+                    System.out.println("opst is: "+opst.toString());
                 } else {
-                    while ((char) opst.peek() != '(') {
+                    while (!((String)opst.peek()).equals("(")) {
                         pexp.push(opst.pop());
+                        System.out.println("6 item is: "+item);
+                        System.out.println("pext is: "+pexp.toString());
                     }
-                    if ((char) opst.peek() == '(') {
+                    if (((String)opst.peek()).equals("(")) {
                         opst.pop();
+                        System.out.println("7 item is: "+item);
+                        System.out.println("opst is: "+opst.toString());
                     }
 
                 }
@@ -72,8 +92,9 @@ public class  post_to_infix{
             }
 
         }
-        while (!opst.isEmpty() && (char)opst.peek() != '(' && (char)opst.peek() != ')') {
+        while (!opst.isEmpty() && !((String)opst.peek()).equals("(") && !((String)opst.peek()).equals(")")) {
             pexp.push(opst.pop());
+            System.out.println("pext is: "+pexp.toString());
         }
        // System.out.println(pexp.toString());
        // System.out.println(opst.toString());
@@ -81,7 +102,7 @@ public class  post_to_infix{
     }
     
     
-    public static boolean isOprator(char a) {
+    public static boolean isOprator(String a) {
 //        if(57< a | a<48 ){
 //          
 //           return true;
@@ -91,26 +112,37 @@ public class  post_to_infix{
 //           return false;
 //       }
         //System.out.println("isOperator :"+ a);
-        return (122 < a | a < 97);
+        try{
+        Double.parseDouble(a);
+        System.out.println("is not Operator :"+a);
+        return false;
+        
+        }
+        catch(NumberFormatException e)
+        {
+            System.out.println("is a Operator :"+a);
+            return true;
+        }
+        //return (122 < a | a < 97);
 
     }
 
-    public static int priotity(char Op) {
+    public static int priotity(String Op) {
         int x = 0;
         switch (Op) {
-            case '^':
+            case "^":
                 x = 1;
                 break;
-            case '*':
+            case "*":
                 x = 2;
                 break;
-            case '/':
+            case "/":
                 x = 2;
                 break;
-            case '+':
+            case "+":
                 x = 3;
                 break;
-            case '-':
+            case "-":
                 x = 3;
                 break;
             default:
