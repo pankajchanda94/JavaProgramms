@@ -40,7 +40,8 @@ public class TestProject {
         //System.out.println("corrStack "+corrStack.toString());
         pexp = calc.calculate(corrStack);
          System.out.println(pexp.toString());
-       // calculate_postfix.calculate(pexp);
+         
+       System.out.println("Result is: "+calculate_postfix.calculate(pexp).toString());
         
         //System.out.println(pexp.peek());
        

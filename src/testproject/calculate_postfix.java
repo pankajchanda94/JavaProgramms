@@ -15,58 +15,78 @@ import java.util.Stack;
  */
 public class calculate_postfix {
     
-    public static String calculate(Stack exp)
+    public static Stack calculate(Stack exp)
     {
         Stack result = exp;
-        int a;
-        int b;
-        
-        ArrayList<Character> arrlist;
-        arrlist = new ArrayList<Character>();
+        double a;
+        double b;
+       System.out.println("calculat_postfix : "+ exp.toString());
+        ArrayList<String> arrlist;
+        arrlist = new ArrayList<String>();
+       
+     //((3473.343+33)/(34*43.8))+789-89*(778.9/78.7867678)
      
-        System.out.println(exp.getClass().getName());
-        String str = new String();
+       // System.out.println(exp.getClass().getName());
+        //String str = new String();
         
         while(!exp.isEmpty())
         {
-            arrlist.add((String)exp.pop());
+             arrlist.add((String)exp.pop());
         }
-       System.out.println("dfdfdf"+arrlist.toString());
-       for(int i=arrlist.size();i>=0;i--)
+        
+      // result =  Stack_inverter.evaluate(exp);
+       System.out.println("Stack inverter in arr list : "+ arrlist.toString());
+       //System.out.println("dfdfdf"+arrlist.toString());
+       System.out.println("arraylist size is: "+arrlist.size());
+       
+       for(int i=arrlist.size()-1;i>=0;i--)
        {
-           if(!post_to_infix.isOprator((char)arrlist.indexOf(i)))
+           //str = arrlist.get(i);
+           //(343+23.4)-(345*343)
+           //[-, *, 343, 345, +, 23.4, 343]
+           if(!post_to_infix.isOprator(arrlist.get(i)))
            {
-               result.push(arrlist.indexOf(i));
+               result.push(Double.parseDouble(arrlist.get(i)));
+               System.out.println("the number is : "+arrlist.get(i));
+               System.out.println("result stack is :"+result.toString());
            }
-           else if(post_to_infix.isOprator((char)arrlist.indexOf(i)))
+           else if(post_to_infix.isOprator(arrlist.get(i)))
            {
-               //a-b
-               a = (int)result.pop();
-               b= (int)result.pop();
-               result.push(calculate_postfix.math(a,b,(char)arrlist.indexOf(i)));
+               //b-a
+               b = (double)result.pop();  //top
+               a= (double)result.pop();
+               result.push(calculate_postfix.math(a,b,arrlist.get(i)));
+               System.out.println("the pushed result is : "+calculate_postfix.math(a,b,arrlist.get(i)));
+               System.out.println("result stack is :"+result.toString());
            }
             
            
        }
-        return str;
+        return result;
     }
     
-    public static float math(int a,int b,char op)
+    public static double math(double a,double b,String op)
     {
-        float r;
+        double r;
        switch(op)
        {
-           case '+':
+           case "+":
                r = a+b;
-           case '-':
+               System.out.println("1 r is "+r);
+               break;
+           case "-":
                r = a-b;
-           case '*':
+               break;
+           case "*":
                r = a*b;
-           case '/':
+               break;
+           case "/":
                r = a/b;
+               break;
            default:
                r = 0;        
        }
+       System.out.println("2 r is "+r);
        return r;
     }
     
